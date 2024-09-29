@@ -5,8 +5,8 @@
 }
 
 body {
-    min-width: 350px;
-    min-height: 200px;
+    min-width: 330px;
+    min-height: 120px;
 }
 
 article {
@@ -52,10 +52,13 @@ p {
 }
 
 @media screen and (max-width: 500px) {
-    article {
-        scale: 0.4;
+    article, .wrap {
+        width: 100%;
     }
-    article {
-        margin-left: -45px;
+    .wrap div {
+        margin: 3px 0;
+    }
+    input, p {
+        font-size: 22px;
     }
 }
