@@ -1,7 +1,8 @@
 let feedback = document.getElementById("feedback");
 let enter = document.getElementById("enter");
 let input = document.querySelector(".num");
-let submit = document.querySelector(".sub")
+let submit = document.querySelector(".sub");
+let reset = document.querySelector(".reset");
 
 let secret = Math.floor(Math.random()*100);
 let tries = 10;
@@ -13,7 +14,7 @@ function start() {
         tries--;
         if (tries == 0) {
             submit.removeEventListener("click", start);
-            feedback.textContent = "You Have Lost!!";
+            feedback.textContent = `You've Lost!! The Number Was ${secret}`;
             feedback.style.color = "darkred";
             enter.style.color = "darkred";
         } else if (+input.value > secret) {
@@ -43,11 +44,30 @@ function start() {
 
 submit.addEventListener("click", start);
 
+function reseting() {
+    if (tries > 0) {
+        feedback.textContent = `The Number Was ${secret}`;
+        feedback.style.color = 'darkorange';
+    } else feedback.textContent = "ㅤ";
+    setTimeout(() => {
+        feedback.textContent = "ㅤ";
+    }, 2500);
+    prev = '';
+    tries = 10;
+    enter.textContent = "Enter a number from 1 to 100";
+    enter.style.color = "#006eff"
+    input.value = "";
+    secret = Math.floor(Math.random()*100)
+}
+reset.addEventListener("click", reseting);
+
 document.addEventListener("keydown", function(event){
     const key = event.key;
     if (key == "Enter") {
         submit.classList.add("pressed");
-    } 
+    } else if (key == "R" || key == "r") {
+        reset.classList.add("pressed");
+    }
     if (document.activeElement !== input) {
         if (key >= "0" && key <= "9") {
             input.value += key;
@@ -61,5 +81,8 @@ document.addEventListener("keyup", function(event){
     if (key == "Enter") {
         submit.classList.remove("pressed");
         if (tries > 0) start();
-    } 
+    } else if (key == "R" || key == "r") {
+        reset.classList.remove("pressed");
+        reseting();
+    }
 });
