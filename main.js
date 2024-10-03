@@ -4,7 +4,7 @@ let input = document.querySelector(".num");
 let submit = document.querySelector(".sub")
 
 let secret = Math.floor(Math.random()*100);
-let tries = 2;
+let tries = 10;
 
 let prev = "";
 
