@@ -4,14 +4,19 @@ let input = document.querySelector(".num");
 let submit = document.querySelector(".sub")
 
 let secret = Math.floor(Math.random()*100);
-let tries = 10;
+let tries = 2;
 
 let prev = "";
 
 function start() {
     if (+input.value < 100 && +input.value > 0) {
         tries--;
-        if (+input.value > secret) {
+        if (tries == 0) {
+            submit.removeEventListener("click", start);
+            feedback.textContent = "You Have Lost!!";
+            feedback.style.color = "darkred";
+            enter.style.color = "darkred";
+        } else if (+input.value > secret) {
             feedback.textContent = "Too High! Try Again";
             feedback.style.color = "#e05707";
         } else if (+input.value < secret) {
@@ -55,6 +60,6 @@ document.addEventListener("keyup", function(event){
     const key = event.key;
     if (key == "Enter") {
         submit.classList.remove("pressed");
-        start();
+        if (tries > 0) start();
     } 
 });
